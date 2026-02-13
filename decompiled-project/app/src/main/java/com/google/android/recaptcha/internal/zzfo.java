@@ -1,6 +1,0 @@
-package com.google.android.recaptcha.internal;
-
-/* loaded from: classes.dex */
-public interface zzfo {
-    void zza(String str);
-}
