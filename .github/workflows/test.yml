@@ -45,21 +45,17 @@ jobs:
       
       - name: Run JADX Decompiler
         env:
-          # Increase heap size to 6GB (leaving 1GB for OS) to prevent crash
           JAVA_OPTS: "-Xmx6g"
         run: |
-          # Added --no-res: Often assets cause size limits. 
-          # If you NEED xmls/images, remove --no-res but be ready for git push failures.
-          # --threads-count 2: Limits CPU usage to prevent freezing the runner.
-          
           jadx -d decompiled-project \
                --export-gradle \
                --show-bad-code \
                --no-debug-info \
                --no-res \
+               --kotlin \
                --threads-count 2 \
                app.apk
-          
+
       - name: Clean up Large Files (Pre-commit)
         run: |
           # Delete common large files that break Git (Native libs, fonts, media)
