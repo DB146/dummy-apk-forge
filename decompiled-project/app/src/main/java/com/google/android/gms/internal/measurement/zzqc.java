@@ -1,0 +1,20 @@
+package com.google.android.gms.internal.measurement;
+
+import M6.q;
+import M6.u;
+
+/* loaded from: classes.dex */
+public final class zzqc implements q {
+    private static final zzqc zza = new zzqc();
+    private final q zzb = new u(new zzqe());
+
+    public static boolean zza() {
+        return zza.get().zza();
+    }
+
+    @Override // M6.q
+    /* renamed from: zzb, reason: merged with bridge method [inline-methods] */
+    public final zzqd get() {
+        return (zzqd) this.zzb.get();
+    }
+}

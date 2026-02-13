@@ -1,0 +1,16 @@
+package com.google.firebase.firestore;
+
+import Eb.v;
+import androidx.annotation.Keep;
+import com.google.firebase.components.ComponentRegistrar;
+import java.util.List;
+import p7.C1857a;
+
+@Keep
+/* loaded from: classes.dex */
+public final class FirebaseFirestoreKtxRegistrar implements ComponentRegistrar {
+    @Override // com.google.firebase.components.ComponentRegistrar
+    public List<C1857a> getComponents() {
+        return v.f3891a;
+    }
+}

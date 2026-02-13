@@ -1,0 +1,6 @@
+package ib;
+
+/* renamed from: ib.c, reason: case insensitive filesystem */
+/* loaded from: classes2.dex */
+public final class C1361c extends RuntimeException {
+}

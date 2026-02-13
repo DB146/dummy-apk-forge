@@ -1,0 +1,6 @@
+package E4;
+
+/* loaded from: classes.dex */
+public interface w {
+    int d(Object obj);
+}

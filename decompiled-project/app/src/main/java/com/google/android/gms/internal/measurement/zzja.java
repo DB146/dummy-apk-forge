@@ -1,0 +1,50 @@
+package com.google.android.gms.internal.measurement;
+
+import java.util.List;
+
+/* loaded from: classes.dex */
+public final class zzja extends zzme implements zznm {
+    private static final zzja zzf;
+    private int zzb;
+    private zzmn zzd = zzme.zzcv();
+    private zziw zze;
+
+    static {
+        zzja zzjaVar = new zzja();
+        zzf = zzjaVar;
+        zzme.zzcp(zzja.class, zzjaVar);
+    }
+
+    private zzja() {
+    }
+
+    public final List zza() {
+        return this.zzd;
+    }
+
+    public final zziw zzb() {
+        zziw zziwVar = this.zze;
+        return zziwVar == null ? zziw.zzc() : zziwVar;
+    }
+
+    @Override // com.google.android.gms.internal.measurement.zzme
+    public final Object zzl(int i7, Object obj, Object obj2) {
+        int i10 = i7 - 1;
+        if (i10 == 0) {
+            return (byte) 1;
+        }
+        if (i10 == 2) {
+            return zzme.zzcq(zzf, "\u0004\u0002\u0000\u0001\u0001\u0002\u0002\u0000\u0001\u0000\u0001\u001b\u0002ဉ\u0000", new Object[]{"zzb", "zzd", zzje.class, "zze"});
+        }
+        if (i10 == 3) {
+            return new zzja();
+        }
+        if (i10 == 4) {
+            return new zziz(null);
+        }
+        if (i10 == 5) {
+            return zzf;
+        }
+        throw null;
+    }
+}
