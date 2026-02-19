@@ -10,7 +10,7 @@ while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
     echo "Building APK for package: $PACKAGE"
 
     # Replace placeholder in files
-    sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/AndroidManifest.xml
+    sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/res/values/strings.xml
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/java/MainActivity.java
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/build.gradle
 
@@ -21,7 +21,7 @@ while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
     cp app/build/outputs/apk/debug/app-debug.apk "$OUTPUT_DIR/${PACKAGE}.apk"
 
     # Restore placeholders
-    sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/src/main/AndroidManifest.xml
+    sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/src/main/res/values/strings.xml
     sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/src/main/java/MainActivity.java
     sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/build.gradle
 
