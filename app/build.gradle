@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "PACKAGE_PLACEHOLDER"
     compileSdkVersion 34
     defaultConfig {
         applicationId "PACKAGE_PLACEHOLDER"
