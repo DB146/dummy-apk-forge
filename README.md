@@ -1,4 +1,4 @@
-# APK Batch Builder
+# Dummy Apk Forge
 
 A GitHub Actions workflow that automatically builds multiple do-nothing Android APKs, each with a unique package name and app label, from a simple text file.
 
