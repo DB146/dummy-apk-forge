@@ -2,6 +2,12 @@ name: Build APKs
 
 on:
   workflow_dispatch:
+    inputs:
+      count:
+        description: 'Number of APKs to build (from top of packages.txt)'
+        required: true
+        default: '1'
+        type: number
 
 jobs:
   build:
@@ -25,13 +31,11 @@ jobs:
       - name: Generate Gradle Wrapper
         run: gradle wrapper --gradle-version 8.4
 
-      - name: Grant execute permission for gradlew and build script
-        run: |
-          chmod +x gradlew
-          chmod +x build_apks.sh
-          
+      - name: Grant execute permission for build script
+        run: chmod +x build_apks.sh
+
       - name: Build all APKs
-        run: ./build_apks.sh
+        run: ./build_apks.sh ${{ github.event.inputs.count }}
 
       - name: Upload APKs as artifact
         uses: actions/upload-artifact@v4
