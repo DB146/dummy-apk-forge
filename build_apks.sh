@@ -6,8 +6,8 @@ OUTPUT_DIR="output_apks"
 mkdir -p "$OUTPUT_DIR"
 
 while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
+    PACKAGE="${PACKAGE//$'\r'/}"  # strip Windows carriage return
     [ -z "$PACKAGE" ] && continue
-    echo "Building APK for package: $PACKAGE"
 
     # Replace placeholder in files
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/res/values/strings.xml
