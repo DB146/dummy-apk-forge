@@ -29,7 +29,10 @@ jobs:
         run: |
           chmod +x gradlew
           chmod +x build_apks.sh
-
+          
+      - name: Fix line endings
+        run: dos2unix packages.txt
+        
       - name: Build all APKs
         run: ./build_apks.sh
 
