@@ -1,6 +1,6 @@
 name: Build Multiple Apps
 
-on: [push, workflow_dispatch]
+on: workflow_dispatch
 
 jobs:
   build-all:
@@ -31,7 +31,7 @@ jobs:
             echo "----------------------------------------"
             
             # Run Gradle, passing the package name as a parameter (appId)
-            ./gradlew :app:assembleRelease -PappId="$package_name"
+            ./gradlew :app:assembleRelease -PappId="$package_name" < /dev/null
             
             # Move and rename the APK
             mv app/build/outputs/apk/release/app-release.apk "build_output/${package_name}.apk"
