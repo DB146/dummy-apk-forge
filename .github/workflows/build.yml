@@ -1,48 +1,41 @@
-name: Build Multiple Apps
+name: Build APKs
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
-  build-all:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
           java-version: '17'
-          
-      - name: Make Gradlew Executable
-        run: chmod +x gradlew
+          distribution: 'temurin'
 
-      - name: Build APKs from List
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.4'
+
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.4
+
+      - name: Grant execute permission for gradlew and build script
         run: |
-          mkdir -p build_output
-          
-          # Loop through packages.txt
-          while IFS= read -r package_name || [ -n "$package_name" ]; do
-            # Skip empty lines
-            if [ -z "$package_name" ]; then continue; fi
-            
-            echo "----------------------------------------"
-            echo "Building for: $package_name"
-            echo "----------------------------------------"
-            
-            # Run Gradle, passing the package name as a parameter (appId)
-            ./gradlew :app:assembleRelease -PappId="$package_name" < /dev/null
-            
-            # Move and rename the APK
-            mv app/build/outputs/apk/release/app-release.apk "build_output/${package_name}.apk"
-            
-            # Clean for next build (optional, but safer)
-            ./gradlew clean
-            
-          done < packages.txt
+          chmod +x gradlew
+          chmod +x build_apks.sh
 
-      - name: Upload Artifacts
+      - name: Build all APKs
+        run: ./build_apks.sh
+
+      - name: Upload APKs as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Generated-APKs
-          path: build_output/*.apk
+          name: all-apks
+          path: output_apks/
+          retention-days: 30
