@@ -2,12 +2,14 @@
 
 PACKAGES_FILE="packages.txt"
 OUTPUT_DIR="output_apks"
+MAX_COUNT=${1:-9999}  # default to all if no argument given
 mkdir -p "$OUTPUT_DIR"
 
 COUNT=0
 while IFS= read -r PACKAGE <&3 || [ -n "$PACKAGE" ]; do
     PACKAGE="${PACKAGE//$'\r'/}"
     [ -z "$PACKAGE" ] && continue
+    [ "$COUNT" -ge "$MAX_COUNT" ] && break
     COUNT=$((COUNT + 1))
     echo "[$COUNT] Building: $PACKAGE"
 
