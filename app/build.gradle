@@ -1,24 +1,24 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
+
+
 
 android {
-    namespace "com.core.app" // Matches the Java folder structure
+    namespace "PACKAGE_PLACEHOLDER"
     compileSdkVersion 34
-    
+
     defaultConfig {
-        // If we don't pass a property, default to a placeholder
-        applicationId project.hasProperty('appId') ? project.appId : "com.example.placeholder"
+        applicationId "PACKAGE_PLACEHOLDER"
+
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.debug // For testing only. Use proper signing for release.
+
         }
     }
 }
