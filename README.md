@@ -17,6 +17,7 @@ You provide a list of package names in `packages.txt`. When you trigger the work
 │   └── workflows/
 │       └── build.yml           # GitHub Actions workflow
 ├── app/
+│   ├── build.gradle
 │   └── src/
 │       └── main/
 │           ├── AndroidManifest.xml
@@ -25,13 +26,8 @@ You provide a list of package names in `packages.txt`. When you trigger the work
 │           └── res/
 │               └── values/
 │                   └── strings.xml
-├── gradle/
-│   └── wrapper/
-│       └── gradle-wrapper.properties
-├── app/build.gradle
 ├── build.gradle
 ├── settings.gradle
-├── gradlew
 ├── build_apks.sh               # Build script
 └── packages.txt                # Your list of package names
 ```
