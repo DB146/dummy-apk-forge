@@ -38,6 +38,22 @@ You provide a list of package names in `packages.txt`. When you trigger the work
 
 ---
 
+## Use Case: Mobile Game Missions
+
+Many mobile games offer bonus rewards for completing simple cross-promotion missions such as "install [another game] and play for 5 minutes." These missions are common in casual and idle games and usually pay out in-game currency, gems, or other rewards.
+
+Normally, completing these missions means downloading apps from unknown publishers — often with no reviews, unclear permissions, and a real risk of malware or spyware on your device.
+
+This repo solves that problem. Instead of downloading a sketchy unknown app, you build your own clean APK with the exact package name the mission requires. The APK does absolutely nothing — no ads, no trackers, no hidden code — just an empty app that satisfies the package name check. You install it, wait the required time, then uninstall it.
+
+**Benefits:**
+- No risk of installing malware or spyware from unknown sources.
+- You built it yourself, so you know exactly what is in it.
+- No ads or background processes running on your device.
+- Works for any mission that only checks the package name.
+
+---
+
 ## Setup
 
 No local Android SDK or setup is required. Everything runs on GitHub Actions.
