@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 PACKAGES_FILE="packages.txt"
 OUTPUT_DIR="output_apks"
@@ -12,21 +11,28 @@ while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
     COUNT=$((COUNT + 1))
     echo "[$COUNT] Building: $PACKAGE"
 
-    # Escape dots for sed
     ESCAPED=$(echo "$PACKAGE" | sed 's/\./\\./g')
 
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/res/values/strings.xml
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/java/MainActivity.java
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/build.gradle
 
-    ./gradlew assembleDebug
+    echo "--- app/build.gradle after replace ---"
+    cat app/build.gradle
 
-    cp app/build/outputs/apk/debug/app-debug.apk "$OUTPUT_DIR/${PACKAGE}.apk"
+    if ./gradlew assembleDebug; then
+        cp app/build/outputs/apk/debug/app-debug.apk "$OUTPUT_DIR/${PACKAGE}.apk"
+        echo "✓ Done: $PACKAGE"
+    else
+        echo "✗ FAILED: $PACKAGE"
+    fi
 
-    # Restore using escaped pattern
     sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/src/main/res/values/strings.xml
     sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/src/main/java/MainActivity.java
     sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/build.gradle
+
+    echo "--- app/build.gradle after restore ---"
+    cat app/build.gradle
 
 done < "$PACKAGES_FILE"
 
