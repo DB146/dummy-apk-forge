@@ -5,7 +5,7 @@ OUTPUT_DIR="output_apks"
 mkdir -p "$OUTPUT_DIR"
 
 COUNT=0
-while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
+while IFS= read -r PACKAGE <&3 || [ -n "$PACKAGE" ]; do
     PACKAGE="${PACKAGE//$'\r'/}"
     [ -z "$PACKAGE" ] && continue
     COUNT=$((COUNT + 1))
@@ -16,9 +16,6 @@ while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/res/values/strings.xml
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/java/MainActivity.java
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/build.gradle
-
-    echo "--- app/build.gradle after replace ---"
-    cat app/build.gradle
 
     if ./gradlew assembleDebug; then
         cp app/build/outputs/apk/debug/app-debug.apk "$OUTPUT_DIR/${PACKAGE}.apk"
@@ -31,10 +28,7 @@ while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
     sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/src/main/java/MainActivity.java
     sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/build.gradle
 
-    echo "--- app/build.gradle after restore ---"
-    cat app/build.gradle
-
-done < "$PACKAGES_FILE"
+done 3< "$PACKAGES_FILE"
 
 echo "Total built: $COUNT"
 echo "All APKs built in $OUTPUT_DIR/"
