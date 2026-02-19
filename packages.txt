@@ -1,3 +1,5 @@
+com.tgbtcvn.google
+com.gp.mvtdhai.vn
 vn.vplay.quymonquan.r015a
 com.gmt.tn3q
 com.oracle.twgp
