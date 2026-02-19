@@ -5,16 +5,15 @@ PACKAGES_FILE="packages.txt"
 OUTPUT_DIR="output_apks"
 mkdir -p "$OUTPUT_DIR"
 
-echo "=== RAW FILE CONTENTS ==="
-cat -A packages.txt
-echo "=== END RAW ==="
-
 COUNT=0
 while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
     PACKAGE="${PACKAGE//$'\r'/}"
     [ -z "$PACKAGE" ] && continue
     COUNT=$((COUNT + 1))
-    echo "[$COUNT] Package: '$PACKAGE'"
+    echo "[$COUNT] Building: $PACKAGE"
+
+    # Escape dots for sed
+    ESCAPED=$(echo "$PACKAGE" | sed 's/\./\\./g')
 
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/res/values/strings.xml
     sed -i "s/PACKAGE_PLACEHOLDER/$PACKAGE/g" app/src/main/java/MainActivity.java
@@ -24,9 +23,10 @@ while IFS= read -r PACKAGE || [ -n "$PACKAGE" ]; do
 
     cp app/build/outputs/apk/debug/app-debug.apk "$OUTPUT_DIR/${PACKAGE}.apk"
 
-    sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/src/main/res/values/strings.xml
-    sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/src/main/java/MainActivity.java
-    sed -i "s/$PACKAGE/PACKAGE_PLACEHOLDER/g" app/build.gradle
+    # Restore using escaped pattern
+    sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/src/main/res/values/strings.xml
+    sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/src/main/java/MainActivity.java
+    sed -i "s/$ESCAPED/PACKAGE_PLACEHOLDER/g" app/build.gradle
 
 done < "$PACKAGES_FILE"
 
