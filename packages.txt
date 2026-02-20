@@ -1,3 +1,8 @@
+com.nuomizhou.GuardClash
+com.liangrui.NumMatchSaga
+com.liangrui.MergeLegend
+com.liangrui.HappyBusStop
+com.jasonfelix.FunFusion
 com.hjvnfriutnyfunny.nallfell
 com.lt.fs.google
 com.letui.backpack.android
